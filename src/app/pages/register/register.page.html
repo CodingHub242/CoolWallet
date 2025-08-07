@@ -1,0 +1,214 @@
+<ion-content class="register-content">
+  <!-- Sync Status at the top -->
+  <app-sync-status></app-sync-status>
+
+  <div class="register-container">
+    <!-- Header Section -->
+    <div class="header-section">
+      <div class="logo-container">
+        <ion-icon name="wallet-outline" class="logo-icon"></ion-icon>
+        <h1 class="app-title">Join Savings Wallet</h1>
+      </div>
+      <p class="welcome-text">Create your account and start your savings journey today.</p>
+    </div>
+
+    <!-- Registration Form -->
+    <div class="form-container">
+      <form (ngSubmit)="register()" #registerForm="ngForm">
+        <!-- Full Name Input -->
+        <ion-item class="input-item" lines="none">
+          <ion-icon name="person-outline" slot="start" class="input-icon"></ion-icon>
+          <ion-input
+            type="text"
+            placeholder="Full Name"
+            [(ngModel)]="registerData.name"
+            name="name"
+            required
+            autocomplete="name"
+            [disabled]="isLoading">
+          </ion-input>
+        </ion-item>
+
+        <!-- Email Input -->
+        <ion-item class="input-item" lines="none">
+          <ion-icon name="mail-outline" slot="start" class="input-icon"></ion-icon>
+          <ion-input
+            type="email"
+            placeholder="Email address"
+            [(ngModel)]="registerData.email"
+            name="email"
+            required
+            autocomplete="email"
+            [disabled]="isLoading">
+          </ion-input>
+        </ion-item>
+
+        <!-- Net Income Input (Optional) -->
+        <ion-item class="input-item" lines="none">
+          <ion-icon name="cash-outline" slot="start" class="input-icon"></ion-icon>
+          <ion-input
+            type="number"
+            placeholder="Monthly Net Income (Optional)"
+            [(ngModel)]="registerData.net_income"
+            name="net_income"
+            min="0"
+            step="0.01"
+            [disabled]="isLoading">
+          </ion-input>
+        </ion-item>
+
+        <!-- Password Input -->
+        <ion-item class="input-item" lines="none">
+          <ion-icon name="lock-closed-outline" slot="start" class="input-icon"></ion-icon>
+          <ion-input
+            [type]="showPassword ? 'text' : 'password'"
+            placeholder="Password"
+            [(ngModel)]="registerData.password"
+            name="password"
+            required
+            autocomplete="new-password"
+            [disabled]="isLoading">
+          </ion-input>
+          <ion-button 
+            fill="clear" 
+            slot="end" 
+            (click)="togglePasswordVisibility()"
+            [disabled]="isLoading">
+            <ion-icon 
+              [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"
+              class="password-toggle">
+            </ion-icon>
+          </ion-button>
+        </ion-item>
+
+        <!-- Password Strength Indicator -->
+        <div class="password-strength" *ngIf="registerData.password">
+          <div class="strength-bar">
+            <div 
+              class="strength-fill" 
+              [attr.data-strength]="getPasswordStrengthColor()">
+            </div>
+          </div>
+          <span 
+            class="strength-text" 
+            [style.color]="'var(--ion-color-' + getPasswordStrengthColor() + ')'">
+            {{ getPasswordStrengthText() }}
+          </span>
+        </div>
+
+        <!-- Confirm Password Input -->
+        <ion-item class="input-item" lines="none">
+          <ion-icon name="lock-closed-outline" slot="start" class="input-icon"></ion-icon>
+          <ion-input
+            [type]="showConfirmPassword ? 'text' : 'password'"
+            placeholder="Confirm Password"
+            [(ngModel)]="registerData.password_confirmation"
+            name="password_confirmation"
+            required
+            autocomplete="new-password"
+            [disabled]="isLoading">
+          </ion-input>
+          <ion-button 
+            fill="clear" 
+            slot="end" 
+            (click)="toggleConfirmPasswordVisibility()"
+            [disabled]="isLoading">
+            <ion-icon 
+              [name]="showConfirmPassword ? 'eye-off-outline' : 'eye-outline'"
+              class="password-toggle">
+            </ion-icon>
+          </ion-button>
+        </ion-item>
+
+        <!-- Password Match Indicator -->
+        <div class="password-match" *ngIf="registerData.password_confirmation">
+          <ion-icon 
+            [name]="registerData.password === registerData.password_confirmation ? 'checkmark-circle' : 'close-circle'"
+            [color]="registerData.password === registerData.password_confirmation ? 'success' : 'danger'">
+          </ion-icon>
+          <span [style.color]="registerData.password === registerData.password_confirmation ? 'var(--ion-color-success)' : 'var(--ion-color-danger)'">
+            {{ registerData.password === registerData.password_confirmation ? 'Passwords match' : 'Passwords do not match' }}
+          </span>
+        </div>
+
+        <!-- Terms and Conditions -->
+        <div class="terms-container">
+          <ion-checkbox 
+            [(ngModel)]="agreedToTerms" 
+            name="terms"
+            [disabled]="isLoading">
+          </ion-checkbox>
+          <ion-label class="terms-label">
+            I agree to the 
+            <ion-button 
+              fill="clear" 
+              size="small" 
+              (click)="showTermsAndConditions()"
+              [disabled]="isLoading">
+              Terms of Service & Privacy Policy
+            </ion-button>
+          </ion-label>
+        </div>
+
+        <!-- Register Button -->
+        <ion-button 
+          expand="block" 
+          type="submit" 
+          class="register-button"
+          [disabled]="isLoading || !registerForm.valid || !agreedToTerms">
+          <ion-icon name="person-add-outline" slot="start" *ngIf="!isLoading"></ion-icon>
+          <ion-spinner name="crescent" *ngIf="isLoading"></ion-spinner>
+          {{ isLoading ? 'Creating Account...' : 'Create Account' }}
+        </ion-button>
+      </form>
+    </div>
+
+    <!-- Network Status Indicator -->
+    <div class="network-status" *ngIf="!isOnline">
+      <ion-chip color="warning">
+        <ion-icon name="cloud-offline-outline"></ion-icon>
+        <ion-label>Offline Mode</ion-label>
+      </ion-chip>
+      <p class="offline-message">
+        You're currently offline. Your account will be created locally and synced when you're back online.
+      </p>
+    </div>
+
+    <!-- Login Link -->
+    <div class="login-section">
+      <p class="login-text">
+        Already have an account?
+        <ion-button 
+          fill="clear" 
+          size="small" 
+          (click)="goToLogin()"
+          [disabled]="isLoading">
+          Sign In
+        </ion-button>
+      </p>
+    </div>
+
+    <!-- Security Features -->
+    <div class="security-section">
+      <h3>Your Data is Secure</h3>
+      <div class="security-grid">
+        <div class="security-item">
+          <ion-icon name="shield-checkmark-outline" color="success"></ion-icon>
+          <span>End-to-End Encryption</span>
+        </div>
+        <div class="security-item">
+          <ion-icon name="lock-closed-outline" color="primary"></ion-icon>
+          <span>Secure Authentication</span>
+        </div>
+        <div class="security-item">
+          <ion-icon name="eye-off-outline" color="secondary"></ion-icon>
+          <span>Private by Design</span>
+        </div>
+        <div class="security-item">
+          <ion-icon name="server-outline" color="tertiary"></ion-icon>
+          <span>Local Data Storage</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

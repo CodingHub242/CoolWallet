@@ -1,0 +1,150 @@
+<ion-content class="login-content">
+  <!-- Sync Status at the top -->
+  <app-sync-status></app-sync-status>
+
+  <div class="login-container">
+    <!-- Header Section -->
+    <div class="header-section">
+      <div class="logo-container">
+        <ion-icon name="wallet-outline" class="logo-icon"></ion-icon>
+        <h1 class="app-title">Savings Wallet</h1>
+      </div>
+      <p class="welcome-text">Welcome back! Sign in to continue managing your savings.</p>
+    </div>
+
+    <!-- Login Form -->
+    <div class="form-container">
+      <form (ngSubmit)="login()" #loginForm="ngForm">
+        <!-- Email Input -->
+        <ion-item class="input-item" lines="none">
+          <ion-icon name="mail-outline" slot="start" class="input-icon"></ion-icon>
+          <ion-input
+            type="email"
+            placeholder="Email address"
+            [(ngModel)]="loginData.email"
+            name="email"
+            required
+            autocomplete="email"
+            [disabled]="isLoading">
+          </ion-input>
+        </ion-item>
+
+        <!-- Password Input -->
+        <ion-item class="input-item" lines="none">
+          <ion-icon name="lock-closed-outline" slot="start" class="input-icon"></ion-icon>
+          <ion-input
+            [type]="showPassword ? 'text' : 'password'"
+            placeholder="Password"
+            [(ngModel)]="loginData.password"
+            name="password"
+            required
+            autocomplete="current-password"
+            [disabled]="isLoading">
+          </ion-input>
+          <ion-button 
+            fill="clear" 
+            slot="end" 
+            (click)="togglePasswordVisibility()"
+            [disabled]="isLoading">
+            <ion-icon 
+              [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"
+              class="password-toggle">
+            </ion-icon>
+          </ion-button>
+        </ion-item>
+
+        <!-- Remember Me Checkbox -->
+        <ion-item class="remember-me-item" lines="none">
+          <ion-checkbox
+            slot="start"
+            [(ngModel)]="loginData.rememberMe"
+            name="rememberMe"
+            [disabled]="isLoading">
+          </ion-checkbox>
+          <ion-label class="remember-me-label">Remember me</ion-label>
+        </ion-item>
+
+        <!-- Forgot Password Link -->
+        <div class="forgot-password-container">
+          <ion-button
+            fill="clear"
+            size="small"
+            (click)="forgotPassword()"
+            [disabled]="isLoading">
+            Forgot Password?
+          </ion-button>
+        </div>
+
+        <!-- Login Button -->
+        <ion-button 
+          expand="block" 
+          type="submit" 
+          class="login-button"
+          [disabled]="isLoading || !loginForm.valid">
+          <ion-icon name="log-in-outline" slot="start" *ngIf="!isLoading"></ion-icon>
+          <ion-spinner name="crescent" *ngIf="isLoading"></ion-spinner>
+          {{ isLoading ? 'Signing In...' : 'Sign In' }}
+        </ion-button>
+
+        <!-- Demo Login Button (for testing) -->
+        <ion-button 
+          expand="block" 
+          fill="outline" 
+          class="demo-button"
+          (click)="demoLogin()"
+          [disabled]="isLoading">
+          <ion-icon name="play-outline" slot="start"></ion-icon>
+          Try Demo Account
+        </ion-button>
+      </form>
+    </div>
+
+    <!-- Network Status Indicator -->
+    <div class="network-status" *ngIf="!isOnline">
+      <ion-chip color="warning">
+        <ion-icon name="cloud-offline-outline"></ion-icon>
+        <ion-label>Offline Mode</ion-label>
+      </ion-chip>
+      <p class="offline-message">
+        You're currently offline. You can still use the app, and your data will sync when you're back online.
+      </p>
+    </div>
+
+    <!-- Register Link -->
+    <div class="register-section">
+      <p class="register-text">
+        Don't have an account?
+        <ion-button 
+          fill="clear" 
+          size="small" 
+          (click)="goToRegister()"
+          [disabled]="isLoading">
+          Sign Up
+        </ion-button>
+      </p>
+    </div>
+
+    <!-- App Features -->
+    <div class="features-section">
+      <h3>Why Choose Savings Wallet?</h3>
+      <div class="features-grid">
+        <div class="feature-item">
+          <ion-icon name="shield-checkmark-outline" color="success"></ion-icon>
+          <span>Secure & Private</span>
+        </div>
+        <div class="feature-item">
+          <ion-icon name="cloud-offline-outline" color="primary"></ion-icon>
+          <span>Works Offline</span>
+        </div>
+        <div class="feature-item">
+          <ion-icon name="trending-up-outline" color="secondary"></ion-icon>
+          <span>Track Goals</span>
+        </div>
+        <div class="feature-item">
+          <ion-icon name="sync-outline" color="tertiary"></ion-icon>
+          <span>Auto Sync</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

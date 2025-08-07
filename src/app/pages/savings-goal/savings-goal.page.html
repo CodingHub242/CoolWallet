@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Savings Goals</ion-title>
+    <ion-buttons slot="end">
+      <ion-avatar style="width: 42px; height: 42px; margin-right: 10px;">
+        <img [src]="profilePicture || 'assets/img/u1.png'" />
+      </ion-avatar>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Sync Status Component -->
+  <app-sync-status></app-sync-status>
+  
+  <ion-list>
+    <ion-item>
+      <ion-input label="Goal Name" labelPlacement="floating" [(ngModel)]="newGoal.name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Target Amount" labelPlacement="floating" type="number" [(ngModel)]="newGoal.targetAmount"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Set as Primary</ion-label>
+      <ion-toggle [(ngModel)]="newGoal.primary"></ion-toggle>
+    </ion-item>
+    <ion-button expand="full" (click)="addGoal()">Add Goal</ion-button>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      <h3>Your Goals</h3>
+    </ion-list-header>
+    <ion-item *ngFor="let goal of goals">
+      <ion-label>
+        <h2>{{ goal.name }} <ion-badge *ngIf="goal.primary" color="primary">Primary</ion-badge></h2>
+        <p>Target: {{ goal.targetAmount | currency:'GHS' }}</p>
+        <p>Saved: {{ goal.currentAmount | currency:'GHS' }}</p>
+        <ion-progress-bar [value]="goal.currentAmount / goal.targetAmount"></ion-progress-bar>
+      </ion-label>
+      <ion-button slot="end" color="danger" (click)="deleteGoal(goal.name)">Delete</ion-button>
+      <ion-button slot="end" (click)="setPrimary(goal.name)" *ngIf="!goal.primary">Set Primary</ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>

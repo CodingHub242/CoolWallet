@@ -1,0 +1,348 @@
+.login-content {
+  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --color: white;
+}
+
+.login-container {
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Header Section */
+.header-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.logo-container {
+  margin-bottom: 20px;
+}
+
+.logo-icon {
+  font-size: 4rem;
+  color: #fff;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.app-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.welcome-text {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  margin: 10px 0 0 0;
+  line-height: 1.4;
+}
+
+/* Form Container */
+.form-container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 30px 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  margin-bottom: 20px;
+}
+
+/* Input Styling */
+.input-item {
+  --background: #f8f9fa;
+  --border-radius: 12px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --min-height: 56px;
+  margin-bottom: 16px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+
+  &:hover {
+    --background: #f1f3f4;
+  }
+
+  &.item-has-focus {
+    --background: #fff;
+    border-color: var(--ion-color-primary);
+    box-shadow: 0 0 0 3px rgba(var(--ion-color-primary-rgb), 0.1);
+  }
+}
+
+.input-icon {
+  color: var(--ion-color-medium);
+  margin-right: 12px;
+  font-size: 1.2rem;
+}
+
+ion-input {
+  --color: var(--ion-color-dark);
+  --placeholder-color: var(--ion-color-medium);
+  font-size: 1rem;
+}
+
+.password-toggle {
+  color: var(--ion-color-medium);
+  font-size: 1.1rem;
+}
+
+/* Remember Me */
+.remember-me-item {
+  --background: transparent;
+  --padding-start: 0;
+  --padding-end: 0;
+  --min-height: 40px;
+  margin-bottom: 16px;
+  margin-top: 8px;
+
+  ion-checkbox {
+    --size: 20px;
+    --checkbox-background-checked: var(--ion-color-primary);
+    --border-color-checked: var(--ion-color-primary);
+    --checkmark-color: white;
+    margin-right: 12px;
+  }
+}
+
+.remember-me-label {
+  --color: var(--ion-color-dark);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* Forgot Password */
+.forgot-password-container {
+  text-align: right;
+  margin-bottom: 24px;
+  margin-top: -8px;
+
+  ion-button {
+    --color: var(--ion-color-primary);
+    font-size: 0.9rem;
+    text-transform: none;
+  }
+}
+
+/* Buttons */
+.login-button {
+  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --color: white;
+  --border-radius: 12px;
+  --box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  height: 56px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+  text-transform: none;
+  transition: all 0.3s ease;
+
+  &:hover:not(.button-disabled) {
+    --box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+    transform: translateY(-2px);
+  }
+
+  &.button-disabled {
+    --background: var(--ion-color-medium);
+    --box-shadow: none;
+  }
+}
+
+.demo-button {
+  --border-color: rgba(255, 255, 255, 0.3);
+  --color: var(--ion-color-primary);
+  --border-radius: 12px;
+  height: 48px;
+  font-weight: 500;
+  text-transform: none;
+  margin-bottom: 20px;
+
+  &:hover:not(.button-disabled) {
+    --background: rgba(var(--ion-color-primary-rgb), 0.1);
+  }
+}
+
+/* Network Status */
+.network-status {
+  text-align: center;
+  margin-bottom: 20px;
+
+  ion-chip {
+    --background: rgba(255, 193, 7, 0.2);
+    --color: #856404;
+  }
+}
+
+.offline-message {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  margin: 10px 0 0 0;
+  line-height: 1.4;
+}
+
+/* Register Section */
+.register-section {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.register-text {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  margin: 0;
+
+  ion-button {
+    --color: #fff;
+    font-weight: 600;
+    text-transform: none;
+    text-decoration: underline;
+  }
+}
+
+/* Features Section */
+.features-section {
+  text-align: center;
+  margin-top: 20px;
+
+  h3 {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+  }
+
+  ion-icon {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+  }
+
+  span {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-align: center;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 16px;
+  }
+
+  .form-container {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+
+  .app-title {
+    font-size: 2rem;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .feature-item {
+    padding: 12px 8px;
+
+    ion-icon {
+      font-size: 1.3rem;
+    }
+
+    span {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+@media (max-height: 700px) {
+  .login-container {
+    justify-content: flex-start;
+    padding-top: 40px;
+  }
+
+  .header-section {
+    margin-bottom: 30px;
+  }
+
+  .features-section {
+    margin-top: 15px;
+  }
+}
+
+/* Loading State */
+.login-button ion-spinner {
+  --color: white;
+  margin-right: 8px;
+}
+
+/* Focus States for Accessibility */
+ion-button:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
+}
+
+.input-item.item-has-focus {
+  outline: 2px solid var(--ion-color-primary);
+  outline-offset: 2px;
+}
+
+/* Animation for form appearance */
+.form-container {
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Sync status integration */
+app-sync-status {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}

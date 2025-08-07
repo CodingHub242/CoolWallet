@@ -1,0 +1,24 @@
+<ion-item lines="none" class="sync-status-item">
+  <ion-icon 
+    [name]="syncStatus.isOnline ? 'cloud-done' : 'cloud-offline'" 
+    [color]="getStatusColor()" 
+    slot="start">
+  </ion-icon>
+  
+  <ion-label>
+    <h3>{{ getStatusText() }}</h3>
+    <p>Last sync: {{ getLastSyncText() }}</p>
+  </ion-label>
+  
+  <ion-button 
+    fill="clear" 
+    size="small" 
+    slot="end"
+    [disabled]="!syncStatus.isOnline || syncStatus.syncing"
+    (click)="forceSync()">
+    <ion-icon 
+      [name]="syncStatus.syncing ? 'refresh' : 'sync'" 
+      [class.spinning]="syncStatus.syncing">
+    </ion-icon>
+  </ion-button>
+</ion-item>

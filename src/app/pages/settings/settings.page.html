@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Settings</ion-title>
+    <ion-buttons slot="end">
+      <ion-avatar style="width: 42px; height: 42px; margin-right: 10px;">
+        <img [src]="settings.profilePicture || 'assets/img/u1.png'" />
+      </ion-avatar>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list lines="none">
+    <ion-list-header>
+      <ion-label>Profile</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img [src]="settings.profilePicture || 'assets/img/u1.png'" />
+      </ion-avatar>
+      <ion-button (click)="changeProfilePicture()">Change Picture</ion-button>
+    </ion-item>
+
+    <ion-list-header>
+      <ion-label>General</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-icon name="cash-outline" slot="start"></ion-icon>
+      <ion-label style="font-size: 10px;">Net Income</ion-label>
+      <ion-input type="number" [(ngModel)]="netIncome" (ionChange)="saveNetIncome()" class="ion-text-right"></ion-input>
+    </ion-item>
+
+    <ion-list-header>
+      <ion-label>Notifications</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-icon name="notifications-outline" slot="start"></ion-icon>
+      <ion-label>Enable Voice Notifications</ion-label>
+      <ion-toggle slot="end" [(ngModel)]="settings.voiceNotificationsEnabled" (ionChange)="saveSettings()"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="time-outline" slot="start"></ion-icon>
+      <ion-label>Reminder Frequency</ion-label>
+      <ion-select slot="end" [(ngModel)]="settings.reminderFrequency" (ionChange)="saveSettings()">
+        <ion-select-option value="daily">Daily</ion-select-option>
+        <ion-select-option value="weekly">Weekly</ion-select-option>
+        <ion-select-option value="monthly">Monthly</ion-select-option>
+        <ion-select-option value="none">None</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-list-header>
+      <ion-label>Appearance</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-icon name="color-palette-outline" slot="start"></ion-icon>
+      <ion-label>Theme</ion-label>
+      <ion-select slot="end" [(ngModel)]="settings.theme" (ionChange)="saveSettings()">
+        <ion-select-option value="light">Light</ion-select-option>
+        <ion-select-option value="dark">Dark</ion-select-option>
+        <ion-select-option value="maroon">Maroon</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,26 @@
+.sync-status-item {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --min-height: 48px;
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+ion-label h3 {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+
+ion-label p {
+  font-size: 12px;
+  color: var(--ion-color-medium);
+  margin: 2px 0 0 0;
+}

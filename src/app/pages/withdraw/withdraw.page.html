@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Withdraw</ion-title>
+    <ion-buttons slot="end">
+      <ion-avatar style="width: 42px; height: 42px; margin-right: 10px;">
+        <img [src]="profilePicture || 'assets/img/u1.png'" />
+      </ion-avatar>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+   <div class="ion-text-center aval">
+      <p style="color:whitesmoke;">Available Balance</p>
+      <h2 style="color:whitesmoke;">{{ getAvailableBalance() | currency:'GHS' }}</h2>
+    </div>
+
+  <ion-item>
+   
+    <ion-label>Withdraw from</ion-label>
+    <ion-select [(ngModel)]="selectedGoal">
+      <ion-select-option value="general">General Savings</ion-select-option>
+      <ion-select-option *ngFor="let goal of savingsGoals" [value]="goal.name">{{ goal.name }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Amount to Withdraw</ion-label>
+    <ion-input type="number" [(ngModel)]="amountToWithdraw"></ion-input>
+  </ion-item>
+
+  <ion-button expand="block" (click)="withdraw()" [disabled]="!amountToWithdraw || amountToWithdraw <= 0 || amountToWithdraw > getAvailableBalance()">
+    Withdraw
+  </ion-button>
+
+</ion-content>

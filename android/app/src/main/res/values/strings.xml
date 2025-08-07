@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">nhyirabaSaving</string>
+    <string name="title_activity_main">nhyirabaSaving</string>
+    <string name="package_name">com.nhyiraba.saving</string>
+    <string name="custom_url_scheme">com.nhyiraba.saving</string>
+</resources>

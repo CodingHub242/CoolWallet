@@ -1,0 +1,17 @@
+ion-content {
+  --background: var(--page-background-gradient);
+  background-image: var(--page-background-image);
+  background-size: cover;
+  background-position: center;
+}
+
+ion-button {
+    margin-top: 20px;
+}
+.aval{
+  background: #000;
+}
+
+ion-avatar{
+  border:2px solid #b5b5b5;
+}

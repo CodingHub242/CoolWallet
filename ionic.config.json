@@ -1,0 +1,7 @@
+{
+  "name": "savings-wallet-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

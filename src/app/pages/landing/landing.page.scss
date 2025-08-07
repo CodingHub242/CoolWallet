@@ -1,0 +1,36 @@
+.landing-avatar {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 20px;
+}
+
+.container{margin-top: 45%;}
+
+ion-content{
+   --background: var(--page-background-gradient);
+  background-image: var(--page-background-image);
+  background-size: cover;
+  background-position: center;
+}
+
+h1{
+  color:var(--ion-color-primary-contrast);
+  text-align: center;
+  font-weight: 700;
+  font-size: 35px;
+}
+
+p{
+  color:var(--ion-color-primary-contrast);
+  text-align: center;
+}
+
+
+ion-avatar{
+  border:5px solid #58585848;
+
+
+  img{
+    border:5px solid var(--page-background-gradient);
+  }
+}

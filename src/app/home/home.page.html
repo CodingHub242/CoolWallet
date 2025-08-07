@@ -1,0 +1,164 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Welcome, {{ getUserDisplayName() }}</ion-title>
+    <ion-buttons slot="end">
+      <!-- Sync Status Button -->
+      <ion-button fill="clear" (click)="showSyncDetails()" [disabled]="!isSyncAvailable()">
+        <ion-icon
+          [name]="syncStatus?.isLoading || isManualSyncing ? 'sync' : (getPendingChangesCount() > 0 ? 'cloud-upload-outline' : 'cloud-done-outline')"
+          [class.spinning]="syncStatus?.isLoading || isManualSyncing">
+        </ion-icon>
+        <ion-badge color="warning" *ngIf="getPendingChangesCount() > 0">{{ getPendingChangesCount() }}</ion-badge>
+      </ion-button>
+      <ion-button fill="clear" (click)="openSettings()">
+        <ion-icon name="settings-outline"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" (click)="logout()">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+      <ion-avatar style="width: 42px; height: 42px; margin-left: 8px;">
+        <img [src]="profilePicture || 'assets/img/u1.png'" />
+      </ion-avatar>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Sync Status Component -->
+  <app-sync-status></app-sync-status>
+
+  <!-- Enhanced Sync Status Card -->
+  <ion-card *ngIf="syncStatus?.isLoading || isManualSyncing || getPendingChangesCount() > 0">
+    <ion-card-content>
+      <div class="sync-status-card">
+        <ion-icon
+          [name]="syncStatus?.isLoading || isManualSyncing ? 'sync' : 'cloud-upload-outline'"
+          [class.spinning]="syncStatus?.isLoading || isManualSyncing"
+          color="primary">
+        </ion-icon>
+        <div class="sync-info">
+          <h3>{{ getSyncStatusText() }}</h3>
+          <p *ngIf="getPendingChangesCount() > 0">{{ getPendingChangesCount() }} changes pending sync</p>
+          <p *ngIf="syncStatus?.error" class="error-text">{{ syncStatus.error }}</p>
+        </div>
+        <ion-button
+          *ngIf="isSyncAvailable() && getPendingChangesCount() > 0"
+          fill="clear"
+          size="small"
+          (click)="manualSync()">
+          Sync Now
+        </ion-button>
+      </div>
+      <ion-progress-bar
+        *ngIf="syncStatus?.isLoading || isManualSyncing"
+        [value]="syncStatus?.progress ? syncStatus.progress / 100 : 0">
+      </ion-progress-bar>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- User Welcome Card -->
+  <div class="welcome-card">
+    <ion-card>
+      <ion-card-content>
+        <div class="user-info">
+          <ion-avatar class="user-avatar">
+            <img [src]="profilePicture || 'assets/img/u1.png'" />
+          </ion-avatar>
+          <div class="user-details">
+            <h2>{{ getUserDisplayName() }}</h2>
+            <p>{{ getUserEmail() }}</p>
+            <ion-chip color="primary" *ngIf="currentUser?.net_income">
+              <ion-icon name="cash-outline"></ion-icon>
+              <ion-label>{{ netIncome | currency:'GHS' }} monthly</ion-label>
+            </ion-chip>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div class="card">
+    <ion-card-header>
+      <ion-card-title>Total Savings</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <h2>{{ totalSavings | currency:'GHS' }}</h2>
+    </ion-card-content>
+  </div>
+
+  <div class="card" *ngIf="primaryGoal">
+    <ion-card-header>
+      <ion-card-title>{{ primaryGoal.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Target: {{ primaryGoal.targetAmount | currency:'GHS' }}</p>
+      <p>Saved: {{ primaryGoal.currentAmount | currency:'GHS' }}</p>
+      <ion-progress-bar [value]="primaryGoal.currentAmount / primaryGoal.targetAmount"></ion-progress-bar>
+    </ion-card-content>
+  </div>
+
+  <div class="card">
+    <ion-item>
+      <ion-label color="medium" position="floating">Net Income</ion-label>
+      <ion-input type="number" disabled [(ngModel)]="netIncome"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="medium" position="floating">Amount Saved</ion-label>
+      <ion-input type="number" [(ngModel)]="amountSaved"></ion-input>
+    </ion-item>
+
+   
+
+    <button (click)="paymentInit()">Deposit <ion-text *ngIf="amountSaved! > 0" style="margin-left:8px;">  - <span style="margin-left:8px;">GHS {{ amountSaved}}</span></ion-text>
+    </button>
+
+    <!-- <ion-button expand="full" (click)="addSavings()">Save</ion-button> -->
+    <ion-button expand="full" color="secondary" (click)="openWithdraw()">Withdraw</ion-button>
+  </div>
+
+  <div class="card">
+    <ion-list>
+      <ion-list-header>
+        <h3>History</h3>
+      </ion-list-header>
+      <ion-item-sliding *ngFor="let entry of history">
+        <ion-item>
+          <ion-label>
+            <h2 [ngStyle]="{'color': entry.type === 'deposit' ? 'green' : 'red'}">
+              {{ entry.type === 'deposit' ? '+' : '-' }} {{ (entry.type === 'deposit' ? entry.amountSaved : entry.amountWithdrawn) | currency:'GHS' }}
+            </h2>
+            <p>{{ entry.date | date }} <span *ngIf="entry.type === 'withdrawal' && entry.goalName">from {{ entry.goalName }}</span></p>
+          </ion-label>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option (click)="editEntry(entry)">Edit</ion-item-option>
+          <ion-item-option color="danger" (click)="deleteEntry(entry.id)">Delete</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+    <div class="export-buttons">
+      <ion-button expand="full" (click)="exportToPdf()">Export as PDF</ion-button>
+      <ion-button expand="full" (click)="exportToExcel()">Export as Excel</ion-button>
+      <ion-button
+        expand="full"
+        fill="outline"
+        color="primary"
+        (click)="manualSync()"
+        [disabled]="!isSyncAvailable()">
+        <ion-icon name="sync" slot="start" [class.spinning]="isManualSyncing"></ion-icon>
+        {{ isManualSyncing ? 'Syncing...' : 'Sync Data' }}
+      </ion-button>
+    </div>
+  </div>
+
+  <div class="bot-popup" *ngIf="showBot">
+    <div class="bot-message">
+      <p>{{ botMessage }}</p>
+      <ion-button (click)="hideBot()">Close</ion-button>
+    </div>
+  </div>
+</ion-content>
