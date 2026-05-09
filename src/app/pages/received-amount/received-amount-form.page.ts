@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 import { ReceivedAmountService, ReceivedAmount } from '../../services/received-amount.service';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,6 +11,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   selector: 'app-received-amount-form',
   templateUrl: './received-amount-form.page.html',
   styleUrls: ['./received-amount-form.page.scss'],
+  standalone: true,
+  imports: [IonicModule, CommonModule, FormsModule]
 })
 export class ReceivedAmountFormPage implements OnInit {
   receivedAmountForm: FormGroup;

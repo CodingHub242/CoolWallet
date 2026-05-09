@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/received-amount/expenses/{{ receivedAmountId }}"></ion-back-button>
+      <ion-back-button [defaultHref]="'/received-amount/expenses/' + receivedAmountId"></ion-back-button>
     </ion-buttons>
     <ion-title>{{ isEditMode ? 'Edit Expense' : 'Add Expense' }}</ion-title>
   </ion-toolbar>

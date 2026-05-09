@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 import { ReceivedAmountService, Expense } from '../../services/received-amount.service';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,6 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   selector: 'app-expense-list',
   templateUrl: './expense-list.page.html',
   styleUrls: ['./expense-list.page.scss'],
+  standalone: true,
+  imports: [IonicModule, CommonModule, FormsModule]
 })
 export class ExpenseListPage implements OnInit {
   expenses: Expense[] = [];

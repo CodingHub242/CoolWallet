@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 import { ReceivedAmountService, ReceivedAmount } from '../../services/received-amount.service';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -7,6 +10,8 @@ import { Router } from '@angular/router';
   selector: 'app-received-amount-list',
   templateUrl: './received-amount-list.page.html',
   styleUrls: ['./received-amount-list.page.scss'],
+  standalone: true,
+  imports: [IonicModule, CommonModule, FormsModule]
 })
 export class ReceivedAmountListPage implements OnInit {
   receivedAmounts: ReceivedAmount[] = [];

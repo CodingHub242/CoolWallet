@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 import { ReceivedAmountService, Expense } from '../../services/received-amount.service';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,6 +11,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   selector: 'app-expense-form',
   templateUrl: './expense-form.page.html',
   styleUrls: ['./expense-form.page.scss'],
+  standalone: true,
+  imports: [IonicModule, CommonModule, FormsModule]
 })
 export class ExpenseFormPage implements OnInit {
   expenseForm: FormGroup;
