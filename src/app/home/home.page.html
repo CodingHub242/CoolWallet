@@ -179,12 +179,12 @@
         {{ isManualSyncing ? 'Syncing...' : 'Sync Data' }}
       </ion-button>
     </div>
-  </div>
-
-  <div class="bot-popup" *ngIf="showBot">
-    <div class="bot-message">
-      <p>{{ botMessage }}</p>
-      <ion-button (click)="hideBot()">Close</ion-button>
-    </div>
-  </div>
-</ion.content>
+   </div>
+ 
+   <div class="bot-popup" *ngIf="showBot">
+     <div class="bot-message">
+       <p>{{ botMessage }}</p>
+       <ion-button (click)="hideBot()">Close</ion-button>
+     </div>
+   </div>
+ </ion-content>
