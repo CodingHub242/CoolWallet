@@ -301,3 +301,45 @@ ion-card {
     }
   }
 }
+
+/* Card responsiveness */
+.card {
+  margin: 10px;
+  width: calc(100% - 20px);
+  max-width: 400px;
+}
+
+ion-card {
+  --border-radius: 16px;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Welcome card responsiveness */
+.welcome-card {
+  ion-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 0;
+  }
+
+  ion-card-content {
+    padding: 24px;
+  }
+}
+
+/* Grid layout for cards on larger screens */
+@media (min-width: 768px) {
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px;
+  }
+  
+  .card {
+    margin: 0;
+    width: 100%;
+  }
+}

@@ -369,6 +369,15 @@ export class HomePage implements OnInit {
     this.navCtrl.navigateForward('/settings');
   }
 
+  async navToReceivedAmounts() {
+    this.navCtrl.navigateForward('/received-amount');
+  }
+
+  async navToExpenses() {
+    // This would need a specific received amount ID, so we'll go to the list first
+    this.navCtrl.navigateForward('/received-amount');
+  }
+
   getUserDisplayName(): string {
     return this.currentUser?.name || 'User';
   }

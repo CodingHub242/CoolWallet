@@ -80,44 +80,70 @@
     </ion-card>
   </div>
 
-  <div class="card">
-    <ion-card-header>
-      <ion-card-title>Total Savings</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <h2>{{ totalSavings | currency:'GHS' }}</h2>
-    </ion-card-content>
-  </div>
+  <div class="card-container">
+    <div class="card">
+      <ion-card-header>
+        <ion-card-title>Total Savings</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <h2>{{ totalSavings | currency:'GHS' }}</h2>
+      </ion-card-content>
+    </div>
 
-  <div class="card" *ngIf="primaryGoal">
-    <ion-card-header>
-      <ion-card-title>{{ primaryGoal.name }}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p>Target: {{ primaryGoal.targetAmount | currency:'GHS' }}</p>
-      <p>Saved: {{ primaryGoal.currentAmount | currency:'GHS' }}</p>
-      <ion-progress-bar [value]="primaryGoal.currentAmount / primaryGoal.targetAmount"></ion-progress-bar>
-    </ion-card-content>
-  </div>
+    <div class="card" *ngIf="primaryGoal">
+      <ion-card-header>
+        <ion-card-title>{{ primaryGoal.name }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>Target: {{ primaryGoal.targetAmount | currency:'GHS' }}</p>
+        <p>Saved: {{ primaryGoal.currentAmount | currency:'GHS' }}</p>
+        <ion-progress-bar [value]="primaryGoal.currentAmount / primaryGoal.targetAmount"></ion-progress-bar>
+      </ion-card-content>
+    </div>
 
-  <div class="card">
-    <ion-item>
-      <ion-label color="medium" position="floating">Net Income</ion-label>
-      <ion-input type="number" disabled [(ngModel)]="netIncome"></ion-input>
-    </ion-item>
+    <div class="card">
+      <ion-item>
+        <ion-label color="medium" position="floating">Net Income</ion-label>
+        <ion-input type="number" disabled [(ngModel)]="netIncome"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label color="medium" position="floating">Amount Saved</ion-label>
-      <ion-input type="number" [(ngModel)]="amountSaved"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label color="medium" position="floating">Amount Saved</ion-label>
+        <ion-input type="number" [(ngModel)]="amountSaved"></ion-input>
+      </ion-item>
 
-   
+      
+    
+      <button (click)="paymentInit()">Deposit <ion-text *ngIf="amountSaved! > 0" style="margin-left:8px;">  - <span style="margin-left:8px;">GHS {{ amountSaved}}</span></ion-text>
+      </button>
 
-    <button (click)="paymentInit()">Deposit <ion-text *ngIf="amountSaved! > 0" style="margin-left:8px;">  - <span style="margin-left:8px;">GHS {{ amountSaved}}</span></ion-text>
-    </button>
+      <!-- <ion-button expand="full" (click)="addSavings()">Save</ion-button> -->
+      <ion-button expand="full" color="secondary" (click)="openWithdraw()">Withdraw</ion-button>
+    </div>
 
-    <!-- <ion-button expand="full" (click)="addSavings()">Save</ion-button> -->
-    <ion-button expand="full" color="secondary" (click)="openWithdraw()">Withdraw</ion-button>
+    <!-- Received Amounts Card -->
+    <div class="card">
+      <ion-card-header>
+        <ion-card-title>Received Amounts</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-button expand="full" (click)="navToReceivedAmounts()">
+          View Received Amounts
+        </ion-button>
+      </ion-card-content>
+    </div>
+
+    <!-- Expenses Card -->
+    <div class="card">
+      <ion-card-header>
+        <ion-card-title>Expenses</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-button expand="full" (click)="navToExpenses()">
+          View Expenses
+        </ion-button>
+      </ion-card-content>
+    </div>
   </div>
 
   <div class="card">
@@ -161,4 +187,4 @@
       <ion-button (click)="hideBot()">Close</ion-button>
     </div>
   </div>
-</ion-content>
+</ion.content>
