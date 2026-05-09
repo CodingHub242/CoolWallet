@@ -43,5 +43,35 @@ export const routes: Routes = [
   {
     path: '**',
     redirectTo: '/login'
+  },
+  {
+    path: 'received-amount',
+    loadComponent: () => import('./pages/received-amount/received-amount-list.page').then(m => m.ReceivedAmountListPage),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'received-amount/add',
+    loadComponent: () => import('./pages/received-amount/received-amount-form.page').then(m => m.ReceivedAmountFormPage),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'received-amount/edit/:id',
+    loadComponent: () => import('./pages/received-amount/received-amount-form.page').then(m => m.ReceivedAmountFormPage),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'received-amount/expenses/:receivedAmountId',
+    loadComponent: () => import('./pages/received-amount/expense-list.page').then(m => m.ExpenseListPage),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'received-amount/expense/add/:receivedAmountId',
+    loadComponent: () => import('./pages/received-amount/expense-form.page').then(m => m.ExpenseFormPage),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'received-amount/expense/edit/:receivedAmountId/:expenseId',
+    loadComponent: () => import('./pages/received-amount/expense-form.page').then(m => m.ExpenseFormPage),
+    canActivate: [AuthGuard]
   }
 ];

@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Received Amounts</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="addReceivedAmount()">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-row>
+      <ion-col size="6" size-sm="4">
+        <ion-label>Month</ion-label>
+        <ion-select [(ngModel)]="selectedMonth" (ionChange)="onFilterChange()">
+          <ion-select-option *ngFor="let month of months" [value]="month.value">
+            {{ month.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-col>
+      <ion-col size="6" size-sm="4">
+        <ion-label>Year</ion-label>
+        <ion-select [(ngModel)]="selectedYear" (ionChange)="onFilterChange()">
+          <ion-select-option *ngFor="let year of years" [value]="year">
+            {{ year }}
+          </ion-select-option>
+        </ion-select>
+      </ion-col>
+      <ion-col size="12" size-sm="4">
+        <ion-button fill="clear" (click)="loadReceivedAmounts()" size="small">
+          <ion-icon name="refresh-outline"></ion-icon>
+          Filter
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="filteredAmounts.length > 0; else emptyState">
+    <ion-item-sliding *ngFor="let amount of filteredAmounts">
+      <ion-item>
+        <ion-row>
+          <ion-col size="8">
+            <h2>{{ amount.amount | currency }}</h2>
+            <p>
+              <ion-label>{{ amount.date_received | date: 'mediumDate' }}</ion-label>
+              <span *ngIf="amount.is_loan" class="loan-badge">
+                Loan from {{ amount.lender }} ({{ amount.loan_status | titlecase }})
+              </span>
+            </p>
+            <p *ngIf="amount.total_expenses !== undefined">
+              Expenses: {{ amount.total_expenses | currency }} |
+              Remaining: {{ amount.remaining_amount | currency }}
+            </p>
+          </ion-col>
+          <ion-col size="4" text-end>
+            <ion-button fill="clear" size="small" (click)="viewExpenses(amount.id)">
+              <ion-icon name="list-outline"></ion-icon>
+              View Expenses
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="success" (click)="editReceivedAmount(amount.id)">
+          <ion-icon name="create-outline"></ion-icon>
+          Edit
+        </ion-item-option>
+        <ion-item-option color="danger" (click)="deleteReceivedAmount(amount.id)">
+          <ion-icon name="trash-outline"></ion-icon>
+          Delete
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ng-template #emptyState>
+    <ion-refresher slot="fixed" (ionRefresh)="loadReceivedAmounts()">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-text class="ion-text-center ion-padding">
+      <ion-icon name="cash-outline" size="large"></ion-icon>
+      <h3>No received amounts found</h3>
+      <p>Select a month and year to view your received amounts, or add a new one.</p>
+      <ion-button (click)="addReceivedAmount()" expand="block">
+        Add Received Amount
+      </ion-button>
+    </ion-text>
+  </ng-template>
+</ion-content>

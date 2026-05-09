@@ -1,0 +1,17 @@
+.loan-badge {
+  display: inline-block;
+  background-color: var(--ion-color-warning);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  margin-top: 4px;
+}
+
+ion-item-sliding {
+  --ion-item-sliding-background-color: var(--ion-background-color);
+}
+
+ion-item-options {
+  --ion-item-options-background-color: var(--ion-background-color);
+}

@@ -69,6 +69,24 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/{entryId}', [WithdrawalEntryController::class, 'destroy']);
     });
 
+    // Received Amounts routes
+    Route::prefix('received-amounts')->group(function () {
+        Route::get('/', [ReceivedAmountController::class, 'index']);
+        Route::post('/', [ReceivedAmountController::class, 'store']);
+        Route::get('/{id}', [ReceivedAmountController::class, 'show']);
+        Route::put('/{id}', [ReceivedAmountController::class, 'update']);
+        Route::delete('/{id}', [ReceivedAmountController::class, 'destroy']);
+    });
+
+    // Expenses routes (nested under received amounts)
+    Route::prefix('received-amounts/{receivedAmountId}/expenses')->group(function () {
+        Route::get('/', [ExpenseController::class, 'index']);
+        Route::post('/', [ExpenseController::class, 'store']);
+        Route::get('/{id}', [ExpenseController::class, 'show']);
+        Route::put('/{id}', [ExpenseController::class, 'update']);
+        Route::delete('/{id}', [ExpenseController::class, 'destroy']);
+    });
+
     // Alternative route structure for frontend compatibility
     Route::prefix('savings')->group(function () {
         // Goals

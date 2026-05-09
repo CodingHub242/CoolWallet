@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/received-amount/list"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ isEditMode ? 'Edit Received Amount' : 'Add Received Amount' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="receivedAmountForm" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Amount</ion-label>
+        <ion-input type="number" formControlName="amount" inputmode="decimal"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Date Received</ion-label>
+        <ion-input type="date" formControlName="date_received"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Is Loan?</ion-label>
+        <ion-toggle formControlName="is_loan"></ion-toggle>
+      </ion-item>
+
+      <ion-item *ngIf="receivedAmountForm.get('is_loan')?.value">
+        <ion-label position="floating">Lender</ion-label>
+        <ion-input type="text" formControlName="lender"></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="receivedAmountForm.get('is_loan')?.value">
+        <ion-label>Loan Status</ion-label>
+        <ion-select formControlName="loan_status">
+          <ion-select-option *ngFor="let option of loanStatusOptions" [value]="option.value">
+            {{ option.label }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+    <div class="ion-padding">
+      <ion-button type="submit" expand="block" [disabled]="receivedAmountForm.invalid">
+        {{ isEditMode ? 'Update' : 'Create' }} Received Amount
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

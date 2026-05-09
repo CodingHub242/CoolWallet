@@ -177,4 +177,50 @@ export class ApiService {
   async deleteWithdrawalEntry(id: number): Promise<ApiResponse> {
     return this.delete(`/withdrawal-entries/${id}`);
   }
+
+  // Received Amounts endpoints
+  async getReceivedAmounts(filters?: { month?: number; year?: number }): Promise<ApiResponse> {
+    let endpoint = '/received-amounts';
+    if (filters?.month !== undefined && filters?.year !== undefined) {
+      endpoint += `?month=${filters.month}&year=${filters.year}`;
+    }
+    return this.get(endpoint);
+  }
+
+  async createReceivedAmount(amountData: any): Promise<ApiResponse> {
+    return this.post('/received-amounts', amountData);
+  }
+
+  async getReceivedAmount(id: number): Promise<ApiResponse> {
+    return this.get(`/received-amounts/${id}`);
+  }
+
+  async updateReceivedAmount(id: number, amountData: any): Promise<ApiResponse> {
+    return this.put(`/received-amounts/${id}`, amountData);
+  }
+
+  async deleteReceivedAmount(id: number): Promise<ApiResponse> {
+    return this.delete(`/received-amounts/${id}`);
+  }
+
+  // Expenses endpoints
+  async getExpenses(receivedAmountId: number): Promise<ApiResponse> {
+    return this.get(`/received-amounts/${receivedAmountId}/expenses`);
+  }
+
+  async createExpense(receivedAmountId: number, expenseData: any): Promise<ApiResponse> {
+    return this.post(`/received-amounts/${receivedAmountId}/expenses`, expenseData);
+  }
+
+  async getExpense(receivedAmountId: number, expenseId: number): Promise<ApiResponse> {
+    return this.get(`/received-amounts/${receivedAmountId}/expenses/${expenseId}`);
+  }
+
+  async updateExpense(receivedAmountId: number, expenseId: number, expenseData: any): Promise<ApiResponse> {
+    return this.put(`/received-amounts/${receivedAmountId}/expenses/${expenseId}`, expenseData);
+  }
+
+  async deleteExpense(receivedAmountId: number, expenseId: number): Promise<ApiResponse> {
+    return this.delete(`/received-amounts/${receivedAmountId}/expenses/${expenseId}`);
+  }
 }

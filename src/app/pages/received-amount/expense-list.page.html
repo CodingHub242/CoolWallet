@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/received-amount/list"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Expenses</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="receivedAmount">
+    <ion-item>
+      <ion-label>
+        <h2>Received Amount: {{ receivedAmount.amount | currency }}</h2>
+        <p>Date: {{ receivedAmount.date_received | date: 'mediumDate' }}</p>
+        <p *ngIf="receivedAmount.is_loan">
+          <span class="loan-badge">Loan from {{ receivedAmount.lender }}</span>
+        </p>
+      </ion-label>
+    </ion-item>
+    
+    <ion-item-divider>
+      <ion-label>Total Expenses: {{ receivedAmount?.total_expenses | currency }}</ion-label>
+    </ion-item-divider>
+    
+    <ion-item-divider>
+      <ion-label>Remaining Amount: {{ receivedAmount?.remaining_amount | currency }}</ion-label>
+    </ion-item-divider>
+  </ion-list>
+
+  <ion-list *ngIf="expenses.length > 0; else emptyExpenses">
+    <ion-item-sliding *ngFor="let expense of expenses">
+      <ion-item>
+        <ion-row>
+          <ion-col size="8">
+            <h2>{{ expense.name }}</h2>
+            <p>{{ expense.amount | currency }}</p>
+            <p>{{ expense.date | date: 'mediumDate' }}</p>
+          </ion-col>
+          <ion-col size="4" text-end>
+            <ion-button fill="clear" size="small" (click)="editExpense(expense.id)">
+              <ion-icon name="create-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="deleteExpense(expense.id)">
+          <ion-icon name="trash-outline"></ion-icon>
+          Delete
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ng-template #emptyExpenses>
+    <ion-refresher slot="fixed" (ionRefresh)="loadExpenses()">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-text class="ion-text-center ion-padding">
+      <ion-icon name="receipt-outline" size="large"></ion-icon>
+      <h3>No expenses found</h3>
+      <p>Add expenses to track how you spent this received amount.</p>
+      <ion-button (click)="addExpense()" expand="block">
+        Add Expense
+      </ion-button>
+    </ion-text>
+  </ng-template>
+</ion-content>
