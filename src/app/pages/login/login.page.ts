@@ -82,7 +82,7 @@ export class LoginPage implements OnInit {
         await loading.dismiss();
         // Navigate to home immediately after successful login
         // Sync will happen on the home page
-        this.router.navigateByUrl('/home');
+        this.navCtrl.navigateRoot('/home');
       } else {
         await loading.dismiss();
         await this.showAlert('Login Failed', result.message || 'Invalid credentials. Please try again.');
