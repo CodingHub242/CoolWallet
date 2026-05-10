@@ -166,7 +166,7 @@ addExpense() {
             try {
               // Update the received amount with the new additional amount
               const currentAmount = this.receivedAmount?.amount || 0;
-              const newAmount = currentAmount + amount;
+              const newAmount = Number(currentAmount) + Number(amount);
               
               await this.receivedAmountService.moreMoney(this.receivedAmountId, {
                 amount: newAmount,
