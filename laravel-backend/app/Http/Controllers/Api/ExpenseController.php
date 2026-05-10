@@ -26,9 +26,18 @@ class ExpenseController extends Controller
                           ->orderBy('date', 'desc')
                           ->get();
 
+        //get total expenses for this received amount
+        $totalExpenses = Expense::where('received_amount_id', $receivedAmountId)
+                                ->sum('amount');
+
+        //get remaining amount
+        $remainingAmount = $receivedAmount->amount - $totalExpenses;
+
         return response()->json([
             'success' => true,
-            'data' => $expenses
+            'data' => $expenses,
+            'total_expenses' => $totalExpenses,
+            'remaining_amount' => $remainingAmount
         ]);
     }
 

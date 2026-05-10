@@ -32,13 +32,13 @@
       <div class="summary-stats">
         <div class="stat-item">
           <span class="stat-label">Total Spent</span>
-          <span class="stat-value spent">{{ receivedAmount?.total_expenses | currency:'GHS' }}</span>
+          <span class="stat-value spent">{{ total_expenses | currency:'GHS' }}</span>
         </div>
         <div class="stat-divider"></div>
         <div class="stat-item">
           <span class="stat-label">Remaining</span>
           <span class="stat-value remaining" [class.negative]="receivedAmount?.remaining_amount < 0">
-            {{ receivedAmount?.remaining_amount | currency:'GHS' }}
+            {{ remaining_amount | currency:'GHS' }}
           </span>
         </div>
       </div>

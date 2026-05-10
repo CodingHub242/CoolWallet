@@ -17,6 +17,8 @@ export class ExpenseListPage implements OnInit {
   expenses: Expense[] = [];
   receivedAmountId: number = 0;
   receivedAmount: any = null;
+  total_expenses: any = 0;
+  remaining_amount: any = 0;
 
   constructor(
     private receivedAmountService: ReceivedAmountService,
@@ -53,8 +55,10 @@ export class ExpenseListPage implements OnInit {
     await loading.present();
 
     try {
-      const response = await this.receivedAmountService.getExpenses(this.receivedAmountId);
+      const response : any = await this.receivedAmountService.getExpenses(this.receivedAmountId);
       this.expenses = response.data || [];
+      this.total_expenses = response.total_expenses || 0;
+      this.remaining_amount = response.remaining_amount || 0;
     } catch (error) {
       console.error('Error loading expenses:', error);
       this.showError('Failed to load expenses');
