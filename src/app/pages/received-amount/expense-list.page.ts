@@ -155,6 +155,11 @@ addExpense() {
           attributes: {
             inputmode: 'decimal'
           }
+        },
+        {
+          name: 'reference',
+          type: 'text',
+          placeholder: 'Enter Reference'
         }
       ],
       buttons: [
@@ -185,6 +190,7 @@ addExpense() {
               await this.receivedAmountService.moreMoney(this.receivedAmountId, {
                 amount: newAmount,
                 id : this.receivedAmountId,
+                reference: data.reference,
                 date_received: this.receivedAmount?.date_received
               });
               
