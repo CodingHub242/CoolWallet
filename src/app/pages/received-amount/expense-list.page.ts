@@ -148,11 +148,12 @@ addExpense() {
         },
         {
           text: 'Add',
+          //not all code paths 
           handler: async (data:any) => {
             const amount = parseFloat(data.amount);
             if (!amount || amount <= 0) {
               this.showError('Please enter a valid amount');
-              return false;
+              return;
             }
             
             const loading = await this.loadingController.create({
