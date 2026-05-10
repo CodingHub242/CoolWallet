@@ -41,10 +41,6 @@ export const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: '**',
-    redirectTo: '/login'
-  },
-  {
     path: 'received-amount',
     loadComponent: () => import('./pages/received-amount/received-amount-list.page').then(m => m.ReceivedAmountListPage),
     canActivate: [AuthGuard]
@@ -73,5 +69,9 @@ export const routes: Routes = [
     path: 'received-amount/expense/edit/:receivedAmountId/:expenseId',
     loadComponent: () => import('./pages/received-amount/expense-form.page').then(m => m.ExpenseFormPage),
     canActivate: [AuthGuard]
+  },
+  {
+    path: '**',
+    redirectTo: '/login'
   }
 ];

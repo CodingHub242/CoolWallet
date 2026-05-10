@@ -39,11 +39,12 @@ export class LoginPage implements OnInit {
     private router: Router
   ) {}
 
-  async ngOnInit() {
+async ngOnInit() {
     // Wait for auth initialization
     this.authService.authInitialized$.subscribe(async (initialized) => {
       this.authInitialized = initialized;
       if (initialized && this.authService.isAuthenticated) {
+        // User is already logged in, navigate to home
         this.navCtrl.navigateRoot('/home');
       }
     });
