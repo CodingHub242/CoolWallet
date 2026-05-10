@@ -1,70 +1,88 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button [defaultHref]="'/received-amount/list'"></ion-back-button>
+      <ion-back-button [defaultHref]="'/received-amount'"></ion-back-button>
     </ion-buttons>
     <ion-title>Expenses</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="addExpense()">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list *ngIf="receivedAmount">
-    <ion-item>
-      <ion-label>
-        <h2>Received Amount: {{ receivedAmount.amount | currency }}</h2>
-        <p>Date: {{ receivedAmount.date_received | date: 'mediumDate' }}</p>
-        <p *ngIf="receivedAmount.is_loan">
-          <span class="loan-badge">Loan from {{ receivedAmount.lender }}</span>
-        </p>
-      </ion-label>
-    </ion-item>
-    
-    <ion-item-divider>
-      <ion-label>Total Expenses: {{ receivedAmount?.total_expenses | currency }}</ion-label>
-    </ion-item-divider>
-    
-    <ion-item-divider>
-      <ion-label>Remaining Amount: {{ receivedAmount?.remaining_amount | currency }}</ion-label>
-    </ion-item-divider>
-  </ion-list>
+  <!-- Summary Card -->
+  <div class="summary-section" *ngIf="receivedAmount">
+    <div class="summary-card">
+      <div class="summary-header">
+        <div class="received-info">
+          <h2 class="received-value">{{ receivedAmount.amount | currency:'GHS' }}</h2>
+          <p class="received-date">{{ receivedAmount.date_received | date:'mediumDate' }}</p>
+        </div>
+        <div class="loan-badge" *ngIf="receivedAmount.is_loan">
+          <ion-chip color="warning" class="loan-chip">
+            <ion-icon name="wallet-outline"></ion-icon>
+            <span>Loan</span>
+          </ion-chip>
+        </div>
+      </div>
+      
+      <div class="summary-stats">
+        <div class="stat-item">
+          <span class="stat-label">Total Spent</span>
+          <span class="stat-value spent">{{ receivedAmount?.total_expenses | currency:'GHS' }}</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-label">Remaining</span>
+          <span class="stat-value remaining" [class.negative]="receivedAmount?.remaining_amount < 0">
+            {{ receivedAmount?.remaining_amount | currency:'GHS' }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <ion-list *ngIf="expenses.length > 0; else emptyExpenses">
-    <ion-item-sliding *ngFor="let expense of expenses">
-      <ion-item>
-        <ion-row>
-          <ion-col size="8">
-            <h2>{{ expense.name }}</h2>
-            <p>{{ expense.amount | currency }}</p>
-            <p>{{ expense.date | date: 'mediumDate' }}</p>
-          </ion-col>
-          <ion-col size="4" text-end>
-            <ion-button fill="clear" size="small" (click)="editExpense(expense.id)">
-              <ion-icon name="create-outline"></ion-icon>
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-item>
-      <ion-item-options side="end">
-        <ion-item-option color="danger" (click)="deleteExpense(expense.id)">
+  <!-- Expenses List -->
+  <div class="expenses-container" *ngIf="expenses.length > 0; else emptyExpenses">
+    <div class="expense-card" *ngFor="let expense of expenses">
+      <div class="expense-info">
+        <div class="expense-icon">
+          <ion-icon name="receipt-outline"></ion-icon>
+        </div>
+        <div class="expense-details">
+          <h3 class="expense-name">{{ expense.name }}</h3>
+          <p class="expense-date">{{ expense.date | date:'mediumDate' }}</p>
+        </div>
+      </div>
+      <div class="expense-amount">
+        <span class="amount-value">- {{ expense.amount | currency:'GHS' }}</span>
+      </div>
+      <div class="expense-actions">
+        <ion-button fill="clear" size="small" (click)="editExpense(expense.id)">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" size="small" color="danger" (click)="deleteExpense(expense.id)">
           <ion-icon name="trash-outline"></ion-icon>
-          Delete
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
+        </ion-button>
+      </div>
+    </div>
+  </div>
 
+  <!-- Empty State -->
   <ng-template #emptyExpenses>
-    <ion-refresher slot="fixed" (ionRefresh)="loadExpenses()">
-      <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>
-
-    <ion-text class="ion-text-center ion-padding">
-      <ion-icon name="receipt-outline" size="large"></ion-icon>
-      <h3>No expenses found</h3>
-      <p>Add expenses to track how you spent this received amount.</p>
-      <ion-button (click)="addExpense()" expand="block">
+    <div class="empty-state">
+      <div class="empty-icon">
+        <ion-icon name="receipt-outline"></ion-icon>
+      </div>
+      <h3>No expenses recorded</h3>
+      <p>Start tracking your expenses for this received amount.</p>
+      <ion-button (click)="addExpense()" expand="block" class="add-btn">
+        <ion-icon name="add-circle-outline" slot="start"></ion-icon>
         Add Expense
       </ion-button>
-    </ion-text>
+    </div>
   </ng-template>
 </ion-content>

@@ -329,6 +329,7 @@ export class HomePage implements OnInit {
       reader.readAsDataURL(blob);
     });
   }
+  
   async loadProfilePicture() {
     const settings = await this.settingsService.getSettings();
     this.profilePicture = settings.profilePicture;

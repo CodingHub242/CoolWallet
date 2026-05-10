@@ -128,7 +128,24 @@ export class ReceivedAmountListPage implements OnInit {
     this.router.navigate(['/received-amount/edit', id]);
   }
 
-  addReceivedAmount() {
+addReceivedAmount() {
     this.router.navigate(['/received-amount/add']);
+  }
+
+  getLoanStatusColor(status?: string): string {
+    switch (status) {
+      case 'paid':
+        return 'success';
+      case 'partially_paid':
+        return 'warning';
+      case 'pending':
+        return 'danger';
+      default:
+        return 'medium';
+    }
+  }
+
+  isRemainingNegative(remainingAmount: number | undefined): boolean {
+    return remainingAmount !== undefined && remainingAmount < 0;
   }
 }
