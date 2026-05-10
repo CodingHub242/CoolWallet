@@ -49,6 +49,10 @@ export class ReceivedAmountService {
     return this.apiService.updateReceivedAmount(id, amountData);
   }
 
+  async moreMoney(id: number, amountData: any) {
+    return this.apiService.moreMoney(id, amountData);
+  }
+
   async deleteReceivedAmount(id: number) {
     return this.apiService.deleteReceivedAmount(id);
   }

@@ -199,6 +199,10 @@ export class ApiService {
     return this.put(`/received-amounts/${id}`, amountData);
   }
 
+  async moreMoney(id: number, amountData: any): Promise<ApiResponse> {
+    return this.put(`/received-amounts/addMore/${id}`, amountData);
+  }
+
   async deleteReceivedAmount(id: number): Promise<ApiResponse> {
     return this.delete(`/received-amounts/${id}`);
   }

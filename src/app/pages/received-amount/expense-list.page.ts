@@ -19,6 +19,7 @@ export class ExpenseListPage implements OnInit {
   receivedAmount: any = null;
   total_expenses: any = 0;
   remaining_amount: any = 0;
+  moreMoneyAmounts: any;
 
   constructor(
     private receivedAmountService: ReceivedAmountService,
@@ -59,6 +60,7 @@ export class ExpenseListPage implements OnInit {
       this.expenses = response.data || [];
       this.total_expenses = response.total_expenses || 0;
       this.remaining_amount = response.remaining_amount || 0;
+      this.moreMoneyAmounts = response.others || [];
     } catch (error) {
       console.error('Error loading expenses:', error);
       this.showError('Failed to load expenses');
@@ -166,7 +168,7 @@ addExpense() {
               const currentAmount = this.receivedAmount?.amount || 0;
               const newAmount = currentAmount + amount;
               
-              await this.receivedAmountService.updateReceivedAmount(this.receivedAmountId, {
+              await this.receivedAmountService.moreMoney(this.receivedAmountId, {
                 amount: newAmount,
                 date_received: this.receivedAmount?.date_received
               });

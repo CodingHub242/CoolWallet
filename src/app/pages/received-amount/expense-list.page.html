@@ -42,6 +42,17 @@
           </span>
         </div>
       </div>
+
+      <!--Show the More Money added lists-->
+      <div class="more-money-section" *ngIf="moreMoneyAmounts && moreMoneyAmounts.length > 0">
+        <h3 class="more-money-title">More Money Added</h3>
+        <div class="more-money-list">
+          <div class="more-money-item" *ngFor="let money of moreMoneyAmounts">
+            <span class="money-amount">{{ money.amount | currency:'GHS' }}</span>
+            <span class="money-date">{{ money.created_at | date:'mediumDate' }}</span>
+          </div>
+        </div>
+      </div>
       
       <!-- Add More Money Button -->
       <div class="add-more-section">
