@@ -71,9 +71,9 @@
             <h2>{{ getUserDisplayName() }}</h2>
             <p>{{ getUserEmail() }}</p>
             <ion-chip color="primary" *ngIf="currentUser?.net_income">
-              <ion-icon name="cash-outline"></ion-icon>
-              <ion-label>{{ netIncome | currency:'GHS' }} monthly</ion-label>
-            </ion-chip>
+               <ion-icon name="cash-outline"></ion-icon>
+               <ion-label>{{ formatCurrency(netIncome) | currency:'GHS' }} monthly</ion-label>
+             </ion-chip>
           </div>
         </div>
       </ion-card-content>
@@ -86,7 +86,7 @@
         <ion-card-title>Total Savings</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <h2>{{ totalSavings | currency:'GHS' }}</h2>
+        <h2>{{ formatCurrency(totalSavings) | currency:'GHS' }}</h2>
       </ion-card-content>
     </div>
 
@@ -95,9 +95,9 @@
         <ion-card-title>{{ primaryGoal.name }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <p>Target: {{ primaryGoal.targetAmount | currency:'GHS' }}</p>
-        <p>Saved: {{ primaryGoal.currentAmount | currency:'GHS' }}</p>
-        <ion-progress-bar [value]="primaryGoal.currentAmount / primaryGoal.targetAmount"></ion-progress-bar>
+        <p>Target: {{ formatCurrency(primaryGoal.targetAmount) | currency:'GHS' }}</p>
+          <p>Saved: {{ formatCurrency(primaryGoal.currentAmount) | currency:'GHS' }}</p>
+        <ion-progress-bar [value]="formatCurrency(primaryGoal.targetAmount) ? formatCurrency(primaryGoal.currentAmount) / formatCurrency(primaryGoal.targetAmount) : 0"></ion-progress-bar>
       </ion-card-content>
     </div>
 
@@ -155,8 +155,8 @@
         <ion-item>
           <ion-label>
             <h2 [ngStyle]="{'color': entry.type === 'deposit' ? 'green' : 'red'}">
-              {{ entry.type === 'deposit' ? '+' : '-' }} {{ (entry.type === 'deposit' ? entry.amountSaved : entry.amountWithdrawn) | currency:'GHS' }}
-            </h2>
+                {{ entry.type === 'deposit' ? '+' : '-' }} {{ formatCurrency(entry.type === 'deposit' ? entry.amountSaved : entry.amountWithdrawn) | currency:'GHS' }}
+              </h2>
             <p>{{ entry.date | date }} <span *ngIf="entry.type === 'withdrawal' && entry.goalName">from {{ entry.goalName }}</span></p>
           </ion-label>
         </ion-item>

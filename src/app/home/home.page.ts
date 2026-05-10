@@ -370,12 +370,21 @@ export class HomePage implements OnInit {
   }
 
   async navToReceivedAmounts() {
-    this.navCtrl.navigateRoot('/received-amount');
+    this.navCtrl.navigateForward('/received-amount');
   }
 
   async navToExpenses() {
-    // This would need a specific received amount ID, so we'll go to the list first
-    this.navCtrl.navigateRoot('/received-amount');
+    // Navigate to received-amount list first, then user can select an amount to view expenses
+    this.navCtrl.navigateForward('/received-amount');
+  }
+
+  /**
+   * Safely format a value as a number for currency pipe
+   */
+  formatCurrency(value: any): number {
+    if (value === null || value === undefined) return 0;
+    const num = Number(value);
+    return isNaN(num) ? 0 : num;
   }
 
   getUserDisplayName(): string {
