@@ -41,18 +41,18 @@
     </div>
   </div>
 
-  <!-- Amounts List -->
+<!-- Amounts List -->
   <div class="amounts-container" *ngIf="filteredAmounts.length > 0; else emptyState">
     <div class="amount-card" *ngFor="let amount of filteredAmounts">
-      <div class="card-header">
+      <div class="card-main">
         <div class="amount-info">
           <h2 class="amount-value">{{ amount.amount | currency:'GHS' }}</h2>
           <p class="amount-date">{{ amount.date_received | date:'mediumDate' }}</p>
         </div>
         <div class="amount-actions">
-          <ion-button fill="clear" size="small" (click)="viewExpenses(amount.id)" class="action-btn">
-            <ion-icon name="list-outline"></ion-icon>
-            <span class="btn-text">Expenses</span>
+          <ion-button fill="solid" color="primary" size="small" (click)="viewExpenses(amount.id)" class="expenses-btn">
+            <ion-icon name="receipt-outline"></ion-icon>
+            <span class="btn-text">View Expenses</span>
           </ion-button>
         </div>
       </div>
@@ -72,24 +72,22 @@
           </div>
           <div class="summary-row">
             <span class="label">Remaining:</span>
-<span class="value remaining" [class.negative]="isRemainingNegative(amount.remaining_amount)">
+            <span class="value remaining" [class.negative]="isRemainingNegative(amount.remaining_amount)">
               {{ amount.remaining_amount | currency:'GHS' }}
             </span>
           </div>
         </div>
       </div>
       
-      <div class="card-sliding-options">
-        <ion-item-options side="end">
-          <ion-item-option color="primary" (click)="editReceivedAmount(amount.id)">
-            <ion-icon name="create-outline"></ion-icon>
-            Edit
-          </ion-item-option>
-          <ion-item-option color="danger" (click)="deleteReceivedAmount(amount.id)">
-            <ion-icon name="trash-outline"></ion-icon>
-            Delete
-          </ion-item-option>
-        </ion-item-options>
+      <div class="card-footer">
+        <ion-button fill="clear" size="small" (click)="editReceivedAmount(amount.id)" class="edit-btn">
+          <ion-icon name="create-outline" slot="start"></ion-icon>
+          Edit
+        </ion-button>
+        <ion-button fill="clear" size="small" color="danger" (click)="deleteReceivedAmount(amount.id)" class="delete-btn">
+          <ion-icon name="trash-outline" slot="start"></ion-icon>
+          Delete
+        </ion-button>
       </div>
     </div>
   </div>

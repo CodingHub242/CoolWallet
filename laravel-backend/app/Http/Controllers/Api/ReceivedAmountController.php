@@ -7,32 +7,62 @@ use App\Models\ReceivedAmount;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 class ReceivedAmountController extends Controller
 {
-    /**
+/**
      * Get all received amounts for the authenticated user.
      */
     public function index(Request $request): JsonResponse
     {
         $user = $request->user();
-        $query = ReceivedAmount::where('user_id', $user->id);
-
-        // Filter by month/year if provided
-        if ($request->has('month') && $request->has('year')) {
-            $month = (int)$request->input('month');
-            $year = (int)$request->input('year');
-            $query->whereMonth('date_received', $month)
-                  ->whereYear('date_received', $year);
+        
+        // Debug: if no user, return all data to diagnose
+        if (!$user) {
+            $allData = DB::table('received_amounts')->get();
+            return response()->json([
+                'success' => true,
+                'data' => $allData,
+                'debug' => 'No authenticated user - returning all data'
+            ]);
         }
-
-        $receivedAmounts = $query->with(['expenses'])
-                                ->orderBy('date_received', 'desc')
-                                ->get();
+        
+        $userId = $user->id;
+        
+        // If no filters, return all data for this user
+        if (!$request->has('month') || !$request->has('year')) {
+            $results = DB::table('received_amounts')
+                ->where('user_id', $userId)
+                ->orderBy('date_received', 'desc')
+                ->get();
+            
+            return response()->json([
+                'success' => true,
+                'data' => $results,
+                'debug' => 'user_id: ' . $userId
+            ]);
+        }
+        
+        // With filters - use date range instead of MONTH/YEAR functions
+        $month = (int)$request->input('month');
+        $year = (int)$request->input('year');
+        
+        // Calculate start and end dates for the month
+        $startDate = sprintf('%04d-%02d-01', $year, $month);
+        $endDate = sprintf('%04d-%02d-31', $year, $month);
+        
+        $results = DB::table('received_amounts')
+            ->where('user_id', $userId)
+            ->where('date_received', '>=', $startDate)
+            ->where('date_received', '<=', $endDate)
+            ->orderBy('date_received', 'desc')
+            ->get();
 
         return response()->json([
             'success' => true,
-            'data' => $receivedAmounts
+            'data' => $results,
+            'debug' => 'user_id: ' . $userId . ', dates: ' . $startDate . ' to ' . $endDate
         ]);
     }
 

@@ -103,10 +103,60 @@
   }
 }
 
+// Card Main Section
+.card-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.amount-info {
+  flex: 1;
+}
+
+.amount-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ion-color-dark);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.amount-date {
+  font-size: 13px;
+  color: var(--ion-color-medium);
+  margin: 4px 0 0 0;
+}
+
+.amount-actions {
+  flex-shrink: 0;
+}
+
+// Expenses Button - Prominent
+.expenses-btn {
+  --padding-start: 12px;
+  --padding-end: 12px;
+  font-size: 13px;
+  height: 36px;
+  margin: 0;
+  border-radius: 8px;
+  
+  ion-icon {
+    font-size: 18px;
+    margin-right: 4px;
+  }
+  
+  .btn-text {
+    font-weight: 600;
+  }
+}
+
 // Card Details
 .card-details {
   padding-top: 12px;
   border-top: 1px solid var(--ion-color-light);
+  margin-bottom: 12px;
 }
 
 .loan-info {
@@ -158,6 +208,27 @@
       }
     }
   }
+}
+
+// Card Footer - Edit/Delete buttons
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--ion-color-light);
+}
+
+.edit-btn, .delete-btn {
+  --padding-start: 8px;
+  --padding-end: 8px;
+  font-size: 12px;
+  height: 32px;
+  margin: 0;
+}
+
+.delete-btn {
+  --color-hover: var(--ion-color-danger);
 }
 
 // Empty State
