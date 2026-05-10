@@ -13,7 +13,7 @@
 </ion-header>
 
 <ion-content>
-  <!-- Summary Card -->
+<!-- Summary Card -->
   <div class="summary-section" *ngIf="receivedAmount">
     <div class="summary-card">
       <div class="summary-header">
@@ -41,6 +41,14 @@
             {{ remaining_amount | currency:'GHS' }}
           </span>
         </div>
+      </div>
+      
+      <!-- Add More Money Button -->
+      <div class="add-more-section">
+        <ion-button expand="block" color="success" (click)="addMoreMoney()" class="add-more-btn">
+          <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+          Add More Money
+        </ion-button>
       </div>
     </div>
   </div>

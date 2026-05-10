@@ -123,8 +123,69 @@ export class ExpenseListPage implements OnInit {
     this.router.navigate(['/received-amount/expense/edit', this.receivedAmountId, id]);
   }
 
-  addExpense() {
+addExpense() {
     this.router.navigate(['/received-amount/expense/add', this.receivedAmountId]);
+  }
+
+  async addMoreMoney() {
+    const alert = await this.alertController.create({
+      header: 'Add More Money',
+      message: 'Enter the additional amount to add to this received amount',
+      inputs: [
+        {
+          name: 'amount',
+          type: 'number',
+          placeholder: 'Amount to add',
+          attributes: {
+            inputmode: 'decimal'
+          }
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Add',
+          handler: async (data:any) => {
+            const amount = parseFloat(data.amount);
+            if (!amount || amount <= 0) {
+              this.showError('Please enter a valid amount');
+              return false;
+            }
+            
+            const loading = await this.loadingController.create({
+              message: 'Adding amount...'
+            });
+            await loading.present();
+
+            try {
+              // Update the received amount with the new additional amount
+              const currentAmount = this.receivedAmount?.amount || 0;
+              const newAmount = currentAmount + amount;
+              
+              await this.receivedAmountService.updateReceivedAmount(this.receivedAmountId, {
+                amount: newAmount,
+                date_received: this.receivedAmount?.date_received
+              });
+              
+              // Reload data
+              await this.loadReceivedAmount();
+              await this.loadExpenses();
+              
+              await this.showSuccess(`Added GHS ${amount} successfully! New total: GHS ${newAmount}`);
+            } catch (error) {
+              console.error('Error adding more money:', error);
+              this.showError('Failed to add more money');
+            } finally {
+              await loading.dismiss();
+            }
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   goBack() {
