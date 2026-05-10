@@ -7,37 +7,108 @@
 
 .more-money-section {
   margin-top: 12px;
-  display: flex;
-  justify-content: flex-end;
 
-  ion-card {
-    --padding-start: 12px;
-    --padding-end: 12px;
-    height: 36px;
-    font-weight: 600;
-    --border-radius: 10px;
+  .slider-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
 
-    ion-icon {
-      font-size: 18px;
-    }
-
-    .more-money-info {
+    .slider-arrow {
+      position: relative;
+      z-index: 2;
+      background: var(--ion-color-light);
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      margin-left: 8px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: all 0.2s ease;
 
-      .more-money-label {
-        font-size: 10px;
+      ion-icon {
+        font-size: 18px;
         color: var(--ion-color-medium);
-        margin: 0;
       }
 
-      .more-money-value {
-        font-size: 14px;
+      &:hover {
+        background: var(--ion-color-light-shade);
+        transform: scale(1.1);
+      }
+
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+
+    .slider-arrow.left {
+      margin-left: 8px;
+    }
+
+    .slider-arrow.right {
+      margin-right: 8px;
+    }
+
+    .slider-track {
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--ion-color-light) var(--ion-color-light-shade);
+      padding: 8px 0;
+      gap: 12px;
+      scroll-snap-type: x mandatory;
+
+      &::-webkit-scrollbar {
+        height: 6px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: var(--ion-color-light-shade);
+        border-radius: 3px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: var(--ion-color-light);
+        border-radius: 3px;
+      }
+
+      .more-money-card {
+        flex: 0 0 auto;
+        width: 120px;
+        scroll-snap-align: start;
+
+        --padding-start: 12px;
+        --padding-end: 12px;
+        height: 36px;
         font-weight: 600;
-        color: var(--ion-color-success);
-        margin: 0;
+        --border-radius: 10px;
+
+        ion-icon {
+          font-size: 18px;
+        }
+
+        .more-money-info {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          margin-left: 8px;
+
+          .more-money-label {
+            font-size: 10px;
+            color: var(--ion-color-medium);
+            margin: 0;
+          }
+
+          .more-money-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ion-color-success);
+            margin: 0;
+          }
+        }
       }
     }
   }

@@ -43,21 +43,28 @@
         </div>
       </div>
 
-      <!--Show the More Money added lists-->
-      <div class="more-money-section" *ngIf="moreMoneyAmounts && moreMoneyAmounts.length > 0">
-        <!--small cards for each more money items-->
-        <div class="more-money-list">
-          <!-- Loop through the moreMoneyAmounts array and display each item -as small ion cards-->
-          <ion-card *ngFor="let item of moreMoneyAmounts" class="more-money-card">
-            <ion-card-content>
-              <div class="more-money-info">
-                <h4 class="more-money-amount">{{ item.amount | currency:'GHS' }}</h4>
-                <p class="more-money-date">{{ item.created_at | date:'mediumDate' }}</p>
-              </div>
-            </ion-card-content>
-          </ion-card>
-        </div>
-      </div>
+       <!--Show the More Money added lists-->
+       <div class="more-money-section" *ngIf="moreMoneyAmounts && moreMoneyAmounts.length > 0">
+         <div class="slider-container">
+           <button class="slider-arrow left" (click)="scrollLeft()">
+             <ion-icon name="chevron-back-outline"></ion-icon>
+           </button>
+           <div class="slider-track">
+             <!-- Loop through the moreMoneyAmounts array and display each item -as small ion cards, turn cards into slides-->
+             <ion-card *ngFor="let item of moreMoneyAmounts" class="more-money-card">
+               <ion-card-content>
+                 <div class="more-money-info">
+                   <h4 class="more-money-amount">{{ item.amount | currency:'GHS' }}</h4>
+                   <p class="more-money-date">{{ item.created_at | date:'mediumDate' }}</p>
+                 </div>
+               </ion-card-content>
+             </ion-card>
+           </div>
+           <button class="slider-arrow right" (click)="scrollRight()">
+             <ion-icon name="chevron-forward-outline"></ion-icon>
+           </button>
+         </div>
+       </div>
       
       <!-- Add More Money Button -->
       <div class="add-more-section">

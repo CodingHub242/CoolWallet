@@ -87,6 +87,20 @@ export class ExpenseListPage implements OnInit {
     await alert.present();
   }
 
+  scrollLeft() {
+    const sliderTrack = document.querySelector('.slider-track');
+    if (sliderTrack) {
+      sliderTrack.scrollBy({ left: -200, behavior: 'smooth' });
+    }
+  }
+
+  scrollRight() {
+    const sliderTrack = document.querySelector('.slider-track');
+    if (sliderTrack) {
+      sliderTrack.scrollBy({ left: 200, behavior: 'smooth' });
+    }
+  }
+
   async deleteExpense(id: number) {
     const alert = await this.alertController.create({
       header: 'Delete Expense',
