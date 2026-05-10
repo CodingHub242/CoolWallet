@@ -56,6 +56,7 @@
                  <div class="more-money-info">
                    <h4 class="more-money-amount">{{ item.amount | currency:'GHS' }}</h4>
                    <p class="more-money-date">{{ item.created_at | date:'mediumDate' }}</p>
+                   <p class="more-money-reference" *ngIf="item.reference">Ref: {{ item.reference }}</p>
                  </div>
                </ion-card-content>
              </ion-card>

@@ -82,9 +82,13 @@
 
         --padding-start: 12px;
         --padding-end: 12px;
-        height: 36px;
+        height: fit-content;
         font-weight: 600;
         --border-radius: 10px;
+
+        p{
+          font-size: 10px;
+        }
 
         ion-icon {
           font-size: 18px;
