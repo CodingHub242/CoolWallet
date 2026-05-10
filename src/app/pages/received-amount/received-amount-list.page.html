@@ -49,7 +49,8 @@
           <h2 class="amount-value">{{ amount.amount | currency:'GHS' }}</h2>
           <p class="amount-date">{{ amount.date_received | date:'mediumDate' }}</p>
         </div>
-        <div class="amount-actions">
+        <br>
+        <div class="amount-actions" style="float: left;margin: -50px -31px">
           <ion-button fill="solid" color="primary" size="small" (click)="viewExpenses(amount.id)" class="expenses-btn">
             <ion-icon name="receipt-outline"></ion-icon>
             <span class="btn-text">View Expenses</span>
