@@ -200,7 +200,7 @@ export class ApiService {
   }
 
   async moreMoney(id: number, amountData: any): Promise<ApiResponse> {
-    return this.put(`/received-amounts/addMore/${id}`, amountData);
+    return this.post(`/received-amounts/addMore/${id}`, amountData);
   }
 
   async deleteReceivedAmount(id: number): Promise<ApiResponse> {
