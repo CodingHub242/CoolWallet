@@ -9,9 +9,41 @@
   margin-top: 12px;
   display: flex;
   justify-content: flex-end;
+
+  ion-card {
+    --padding-start: 12px;
+    --padding-end: 12px;
+    height: 36px;
+    font-weight: 600;
+    --border-radius: 10px;
+
+    ion-icon {
+      font-size: 18px;
+    }
+
+    .more-money-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-left: 8px;
+
+      .more-money-label {
+        font-size: 10px;
+        color: var(--ion-color-medium);
+        margin: 0;
+      }
+
+      .more-money-value {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--ion-color-success);
+        margin: 0;
+      }
+    }
+  }
 }
 
-  
+
 
 
 .summary-card {
