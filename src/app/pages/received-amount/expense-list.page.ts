@@ -170,6 +170,7 @@ addExpense() {
               
               await this.receivedAmountService.moreMoney(this.receivedAmountId, {
                 amount: newAmount,
+                id : this.receivedAmountId,
                 date_received: this.receivedAmount?.date_received
               });
               
